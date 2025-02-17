@@ -1,0 +1,2 @@
+# GitHubActions-Change-Issue-Label
+GitHubActionsでIssueのLabelを変更するサンプル
