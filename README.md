@@ -1,3 +1,37 @@
 # GitHubActions-Change-Issue-Label
 
 [gh issue edit](https://cli.github.com/manual/gh_issue_edit)  
+
+``` yml
+name: Update Issue Label Sample
+
+on:
+  # Issueにラベルが追加されたときに実行
+  issues:
+    types: [labeled]
+  workflow_dispatch:
+
+jobs:
+  publish:
+    # このジョブで利用する権限を指定
+    permissions:
+      issues: write # Issue の編集（例: クローズ）を許可
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Issue に 'publish' ラベルが付与されているか確認
+      # 'publish' ラベルがなければ、以降の処理をスキップする
+      - name: Check issue labels
+        if: contains(github.event.issue.labels.*.name, 'publish') != true
+        run: exit 0
+
+      # Issue に 'close' ラベルを追加し、'publish' ラベルを削除する
+      # これにより、公開処理が完了したことを示す
+      - name: Update Issue Label
+        run: | 
+          gh issue edit ${{ github.event.issue.number }} --add-label "close"
+          gh issue edit ${{ github.event.issue.number }} --remove-label "publish"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```

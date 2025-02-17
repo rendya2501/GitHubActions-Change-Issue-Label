@@ -1,4 +1,4 @@
-name: publish content from GitHub Issue
+name: Update Issue Label Sample
 
 on:
   # Issueにラベルが追加されたときに実行
