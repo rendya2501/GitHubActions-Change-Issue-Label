@@ -10,7 +10,7 @@ jobs:
   publish:
     # このジョブで利用する権限を指定
     permissions:
-      issues: write        # Issue の編集（例: クローズ）を許可
+      issues: write # Issue の編集（例: クローズ）を許可
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -21,7 +21,8 @@ jobs:
         if: contains(github.event.issue.labels.*.name, 'publish') != true
         run: exit 0
 
-      # Issueのラベルを'close'に変更し、'publish'を削除する
+      # Issue に 'close' ラベルを追加し、'publish' ラベルを削除する
+      # これにより、公開処理が完了したことを示す
       - name: Update Issue Label
         run: | 
           gh issue edit ${{ github.event.issue.number }} --add-label "close"
