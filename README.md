@@ -1,2 +1,3 @@
 # GitHubActions-Change-Issue-Label
-GitHubActionsでIssueのLabelを変更するサンプル
+
+[gh issue edit](https://cli.github.com/manual/gh_issue_edit)  
